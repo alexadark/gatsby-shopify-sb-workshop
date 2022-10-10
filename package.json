@@ -17,6 +17,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.12",
     "gatsby": "^4.23.1",
+    "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-plugin-image": "^2.23.1",
     "gatsby-plugin-postcss": "^5.23.0",
     "gatsby-plugin-sharp": "^4.23.1",
