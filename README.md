@@ -1,21 +1,14 @@
-# Connect Gatsby with Shopify
+# Create Collections
 
-1.  `yarn add gatsby-source-shopify`
-2.  create .env file
+1- `yarn add gatsby-awesome-pagination`
+2- Create templates/Collection.js
+3- Create utils/createCollections.js
+4- gatsby-node.js
 
 ```
-        GATSBY_STOREFRONT_ACCESS_TOKEN=baad2616ab94d8f2c878491b8688a166
-        SHOPIFY_ADMIN_API_ACCESS_TOKEN=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
-        GATSBY_SHOPIFY_STORE_URL=gatsby-shop-demo.myshopify.com
+const createCollections = require("./utils/createCollections");
 
-4.  Gatsby Config:
+exports.createPages = async ({ actions, graphql }) => {
+await createCollections({ actions, graphql });
+};
 ```
-
-{
-resolve: "gatsby-source-shopify",
-options: {
-storeUrl: process.env.GATSBY_SHOPIFY_STORE_URL,
-password: process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN,
-shopifyConnections: ["collections"], // source product collections too
-},
-},
