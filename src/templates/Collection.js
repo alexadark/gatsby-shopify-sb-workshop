@@ -2,6 +2,8 @@ import React from "react";
 import { graphql } from "gatsby";
 import Layout from "~/components/Layout";
 
+import { ProductCard } from "~/components/product";
+
 const Collection = ({ data }) => {
   const { shopifyCollection } = data;
   const { title, description } = shopifyCollection;
@@ -16,7 +18,7 @@ const Collection = ({ data }) => {
 
         <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
           {products.map((product) => (
-            <h1>{product.title}</h1>
+            <ProductCard product={product} key={product.handle} />
           ))}
         </div>
       </div>
@@ -39,7 +41,7 @@ export const pageQuery = graphql`
       skip: $skip
     ) {
       nodes {
-        title
+        ...ProductCardFragment
       }
     }
   }
