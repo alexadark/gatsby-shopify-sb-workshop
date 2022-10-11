@@ -49,6 +49,7 @@ export const pageQuery = graphql`
         }
         variants {
           price
+          shopifyId
         }
       }
     }

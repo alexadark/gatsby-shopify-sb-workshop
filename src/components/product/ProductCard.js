@@ -20,7 +20,7 @@ export const ProductCard = ({ product }) => {
         </div>
       </Link>
       <div className="flex justify-center mb-5">
-        <ButtonAddToCart />
+        <ButtonAddToCart variantId={variants[0].shopifyId} />
       </div>
     </div>
   );

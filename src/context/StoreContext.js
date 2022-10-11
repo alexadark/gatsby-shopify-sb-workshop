@@ -1,19 +1,47 @@
 import React, { createContext } from "react";
+import Client from "shopify-buy";
+
+const client = Client.buildClient({
+  domain: process.env.GATSBY_SHOPIFY_STORE_URL,
+  storefrontAccessToken: process.env.GATSBY_STOREFRONT_ACCESS_TOKEN,
+});
 
 const defaultValues = {
   cart: [],
-  addToCart: () => console.log("added to cart"),
+  addToCart: () => {},
+  client,
 };
 
 export const StoreContext = createContext(defaultValues);
 
 export const StoreProvider = ({ children }) => {
-  const addToCart = () => {
-    console.log("added to cart");
+  const isBrowser = typeof window !== "undefined";
+
+  const addToCart = async (variantId, quantity = 1) => {
+    try {
+      const newCheckout = await client.checkout.create();
+      const lineItems = [
+        {
+          variantId,
+          quantity,
+        },
+      ];
+      const addItems = await client.checkout.addLineItems(
+        newCheckout.id,
+        lineItems
+      );
+
+      console.log("addItems", addItems);
+      //Buy now button
+      //if we are in the browser we open the checkout page for this variant product
+      isBrowser && window.open(addItems.webUrl, "_blank");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <StoreContext.Provider value={{ ...defaultValues }}>
+    <StoreContext.Provider value={{ ...defaultValues, addToCart }}>
       {children}
     </StoreContext.Provider>
   );
