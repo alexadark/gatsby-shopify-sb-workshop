@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import { Image } from "~/components/ui-components";
+import { ButtonAddToCart } from "~/components/shoppingCart";
 
 export const ProductCard = ({ product }) => {
   const { title, handle, variants, featuredImage } = product;
@@ -18,6 +19,9 @@ export const ProductCard = ({ product }) => {
           </div>
         </div>
       </Link>
+      <div className="flex justify-center mb-5">
+        <ButtonAddToCart />
+      </div>
     </div>
   );
 };
