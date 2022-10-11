@@ -15,6 +15,9 @@ const Cart = () => {
             <CartItem item={item} key={item.id} />
           ))}
         </div>
+        <a href={checkout.webUrl} target="_blank" className="btn">
+          {checkout.totalPriceV2?.amount}$ Checkout
+        </a>
       </div>
     </Layout>
   );
