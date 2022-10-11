@@ -41,7 +41,15 @@ export const pageQuery = graphql`
       skip: $skip
     ) {
       nodes {
-        ...ProductCardFragment
+        title
+        handle
+        featuredImage {
+          gatsbyImageData
+          altText
+        }
+        variants {
+          price
+        }
       }
     }
   }
