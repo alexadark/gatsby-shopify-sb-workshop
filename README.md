@@ -1,3 +1,3 @@
-# Create Single Product
+# Create a collection menu
 
-1. Create `pages/{shopifyProduct.handle}.js` using the [File System Route API](https://www.gatsbyjs.com/docs/reference/routing/file-system-route-api/)
+1. Create `Menu.js` using `useStaticQuery` hook to get the collections
