@@ -1,7 +1,7 @@
 import React from "react";
-import { FaShoppingCart as CartIcon } from "react-icons/fa";
-import { Link } from "gatsby";
+import { CartIcon } from "~/components/shoppingCart";
 import Menu from "./Menu";
+import { Link } from "gatsby";
 
 const Header = () => {
   return (
@@ -13,7 +13,7 @@ const Header = () => {
         <Menu />
         <Link to="/cart">
           <div className="relative ">
-            <CartIcon className="text-2xl" />
+            <CartIcon />
           </div>
         </Link>
       </div>
