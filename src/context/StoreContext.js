@@ -56,15 +56,14 @@ export const StoreProvider = ({ children }) => {
           quantity,
         },
       ];
-      const addItems = await client.checkout.addLineItems(
+      const newCheckout = await client.checkout.addLineItems(
         checkout.id,
         lineItems
       );
 
-      console.log("addItems", addItems);
       //Buy now button
       //if we are in the browser we open the checkout page for this variant product
-      isBrowser && window.open(addItems.webUrl, "_blank");
+      isBrowser && window.open(newCheckout.webUrl, "_blank");
     } catch (error) {
       console.log(error);
     }
