@@ -16,6 +16,8 @@ export const StoreContext = createContext(defaultValues);
 
 export const StoreProvider = ({ children }) => {
   const [checkout, setCheckout] = useState({});
+
+  //check if it's a browser
   const isBrowser = typeof window !== "undefined";
 
   const initializeCheckout = async () => {
