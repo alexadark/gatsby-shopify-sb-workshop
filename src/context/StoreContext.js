@@ -2,7 +2,7 @@ import React, { createContext } from "react";
 
 const defaultValues = {
   cart: [],
-  addToCart: () => console.log("added to cart"),
+  addToCart: () => {},
 };
 
 export const StoreContext = createContext(defaultValues);
@@ -13,7 +13,7 @@ export const StoreProvider = ({ children }) => {
   };
 
   return (
-    <StoreContext.Provider value={{ ...defaultValues }}>
+    <StoreContext.Provider value={{ ...defaultValues, addToCart }}>
       {children}
     </StoreContext.Provider>
   );
