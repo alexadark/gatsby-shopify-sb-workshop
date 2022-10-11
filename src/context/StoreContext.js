@@ -9,6 +9,7 @@ const client = Client.buildClient({
 const defaultValues = {
   cart: [],
   addToCart: () => {},
+  removeFromCart: () => {},
   client,
   //set a default value for checkout
   checkout: {
@@ -70,8 +71,21 @@ export const StoreProvider = ({ children }) => {
     }
   };
 
+  const removeFromCart = async (lineItemId) => {
+    try {
+      const newCheckout = await client.checkout.removeLineItems(checkout.id, [
+        lineItemId,
+      ]);
+      setCheckout(newCheckout);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <StoreContext.Provider value={{ ...defaultValues, addToCart, checkout }}>
+    <StoreContext.Provider
+      value={{ ...defaultValues, addToCart, removeFromCart, checkout }}
+    >
       {children}
     </StoreContext.Provider>
   );
