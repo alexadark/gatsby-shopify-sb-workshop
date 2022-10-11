@@ -10,12 +10,16 @@ const defaultValues = {
   cart: [],
   addToCart: () => {},
   client,
+  //set a default value for checkout
+  checkout: {
+    lineItems: [],
+  },
 };
 
 export const StoreContext = createContext(defaultValues);
 
 export const StoreProvider = ({ children }) => {
-  const [checkout, setCheckout] = useState({});
+  const [checkout, setCheckout] = useState(defaultValues.checkout); //take the default value from above
 
   //check if it's a browser
   const isBrowser = typeof window !== "undefined";
@@ -56,22 +60,18 @@ export const StoreProvider = ({ children }) => {
           quantity,
         },
       ];
-      const addItems = await client.checkout.addLineItems(
+      const newCheckout = await client.checkout.addLineItems(
         checkout.id,
         lineItems
       );
-
-      console.log("addItems", addItems);
-      //Buy now button
-      //if we are in the browser we open the checkout page for this variant product
-      isBrowser && window.open(addItems.webUrl, "_blank");
+      setCheckout(newCheckout); //update checkout state in order to include the new lineItems
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <StoreContext.Provider value={{ ...defaultValues, addToCart }}>
+    <StoreContext.Provider value={{ ...defaultValues, addToCart, checkout }}>
       {children}
     </StoreContext.Provider>
   );
