@@ -12,7 +12,7 @@ export const ButtonAddToCart = ({ variantId }) => {
       }}
       className="btn"
     >
-      Buy Now
+      Add to cart
     </button>
   );
 };
