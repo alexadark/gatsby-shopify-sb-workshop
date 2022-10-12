@@ -25,6 +25,17 @@ export const StoreProvider = ({ children }) => {
   //check if it's a browser
   const isBrowser = typeof window !== "undefined";
 
+  //Create a function that create a new checkout id, so we can reuse it
+  const getNewId = async () => {
+    try {
+      const newCheckout = await client.checkout.create();
+      isBrowser && localStorage.setItem("checkout_id", newCheckout.id);
+      return newCheckout;
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const initializeCheckout = async () => {
     try {
       //check if checkout id exists
@@ -37,10 +48,13 @@ export const StoreProvider = ({ children }) => {
       if (currentCheckoutId) {
         //if checkout id exists, fetch checkout from Shopify
         newCheckout = await client.checkout.fetch(currentCheckoutId);
+        //if the checkout as already been completed, create a new checkout
+        if (newCheckout.completedAt) {
+          newCheckout = await getNewId();
+        }
       } else {
         //if it doesn't exist, create new checkout and add it to localStorage
-        newCheckout = await client.checkout.create();
-        isBrowser && localStorage.setItem("checkout_id", newCheckout.id);
+        newCheckout = getNewId();
       }
       //set checkout to state
       setCheckout(newCheckout);
