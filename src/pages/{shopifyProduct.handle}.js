@@ -2,6 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import Layout from "~/components/Layout";
 import { Image } from "~/components/ui-components/Image";
+import { ButtonAddToCart } from "~/components/shoppingCart";
 
 const ProductPage = ({ data }) => {
   const { title, description, variants, featuredImage } = data.shopifyProduct;
@@ -18,6 +19,9 @@ const ProductPage = ({ data }) => {
             {variants[0].price}eur
           </div>
           <div className="product__description">{description}</div>
+          <div className="mt-5">
+            <ButtonAddToCart variantId={variants[0].shopifyId} />
+          </div>
         </div>
       </div>
     </Layout>
@@ -36,6 +40,7 @@ export const pageQuery = graphql`
       }
       variants {
         price
+        shopifyId
       }
       featuredImage {
         src
