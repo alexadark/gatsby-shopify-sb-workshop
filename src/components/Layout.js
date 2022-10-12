@@ -1,11 +1,23 @@
 import React from "react";
 import Header from "./Header";
+import { storyblokInit, apiPlugin } from "gatsby-source-storyblok";
+import Hero from "~/components/storyblok/Hero";
+import Text from "~/components/storyblok/Text";
+
+storyblokInit({
+  accessToken: process.env.GATSBY_STORYBLOK_ACCESS_TOKEN,
+  use: [apiPlugin],
+  components: {
+    hero: Hero,
+    text: Text,
+  },
+});
 
 const Layout = ({ children }) => {
   return (
     <div>
       <Header />
-      <main className="container mx-auto py-10">{children}</main>
+      <main>{children}</main>
     </div>
   );
 };
