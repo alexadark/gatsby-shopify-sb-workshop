@@ -7,20 +7,11 @@ const ALL_PRODUCTS_QUERY = graphql`
   query {
     allShopifyProduct(limit: 100) {
       nodes {
-        id
         handle
         title
-        priceRangeV2 {
-          maxVariantPrice {
-            amount
-          }
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
         variants {
           shopifyId
+          price
         }
       }
     }
@@ -44,16 +35,7 @@ export const ProductsGrid = ({ blok }) => {
         {products.items?.map((sbProduct) => {
           const { name, image, id } = sbProduct;
           const product = allProducts.find((p) => p.title === name);
-          const {
-            handle,
-            priceRangeV2: {
-              maxVariantPrice: { amount: maxPrice },
-              minVariantPrice: { amount: minPrice, currencyCode: currency },
-            },
-            variants,
-          } = product;
-          const price =
-            maxPrice === minPrice ? `${minPrice}` : `from ${minPrice}`;
+          const { handle, variants } = product;
 
           return (
             <div className="border product-card">
@@ -64,8 +46,7 @@ export const ProductsGrid = ({ blok }) => {
                 <div className="p-4 text-center lowercase product-card__info ">
                   <h3 className="font-bold">{name}</h3>
                   <div className="lowercase product-card__price">
-                    {price}
-                    {currency}
+                    {variants[0].price}eur
                   </div>
                 </div>
               </Link>
