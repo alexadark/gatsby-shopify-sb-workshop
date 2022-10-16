@@ -5,7 +5,7 @@ import { Link } from "gatsby";
 
 export const CartIcon = () => {
   const { checkout } = useContext(StoreContext);
-  const qty = checkout.lineItems.reduce((total, item) => {
+  const qty = checkout.lineItems?.reduce((total, item) => {
     return total + item.quantity;
   }, 0);
   return (
