@@ -14,7 +14,7 @@ export const ProductCard = ({ product }) => {
         <div className="p-4 text-center lowercase product-card__info ">
           <h3 className="font-bold">{title}</h3>
           <div className="lowercase product-card__price">
-            {variants[0].price}eur
+            {variants[0]?.price}eur
           </div>
         </div>
       </Link>
